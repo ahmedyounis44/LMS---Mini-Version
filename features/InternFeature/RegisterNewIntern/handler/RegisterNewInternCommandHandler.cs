@@ -42,7 +42,7 @@ namespace LMS___Mini_Version.Feature.InternFeature.Commands
                 if (request.TrackId <= 0)
                     Errors.Add("TrackId", ["TrackId must be greater than zero."]);
 
-                var track = _repository.GetAll().Where(t => t.Id == request.TrackId && t.Track.IsActive).FirstOrDefault();
+                var track = _repository.GetAll().Where(t => t.Id == request.TrackId && t.Track.IsActive).Select(t => new { t.Id, TrackName = t.Track.Name }).FirstOrDefault();
                 if (track?.Id == 0)
                     Errors.Add("TrackId", ["The requested track does not exist or Not Active."]);
 
